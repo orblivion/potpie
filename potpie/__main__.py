@@ -22,9 +22,11 @@ def translate(infile, outfile, type="mixed"):
     for entry in po:
         entry.msgstr = translator.compile(entry.msgid)
 
-    os.makedirs(os.path.dirname(os.path.abspath(outfile)))
+    outfile_abspath = os.path.abspath(outfile)
+    outfile_dirname = os.path.dirname(outfile_abspath)
+    if not os.path.exists(outfile_dirname):
+        os.makedirs(outfile_dirname)
     po.save(outfile)
-
 
 def main():
     parser = argparse.ArgumentParser(description="Create pseudo translation files.")
